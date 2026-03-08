@@ -728,8 +728,7 @@
                     renderStudents();
                     document.getElementById('newLessonSummary').value = '';
                 } else {
-                    customAlert('שגיאה בשמירה בענן', true);
-                }
+customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);                }
             });
         }
 
@@ -1059,5 +1058,6 @@
     </script>
 </body>
 </html>
+
 
 
