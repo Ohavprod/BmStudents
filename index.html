@@ -31,6 +31,11 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
+        /* --- Loader --- */
+        #globalLoader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 9999999; display: none; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px); }
+        .spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #fbbf24; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* כרטיס תלמיד מעוצב */
         .student-card {
             background: linear-gradient(145deg, rgba(40, 56, 84, 0.8), rgba(15, 23, 42, 0.9));
@@ -128,6 +133,11 @@
 <body class="antialiased">
 
     <div id="fixed-background"></div>
+
+    <div id="globalLoader">
+        <div class="spinner"></div>
+        <div class="text-white text-xl font-bold">מעבד נתונים...</div>
+    </div>
 
     <div id="loginScreen" class="min-h-screen flex items-center justify-center relative z-10 px-4">
         <div class="glass-card rounded-3xl p-10 max-w-md w-full text-center">
@@ -379,8 +389,8 @@
 
     <script>
         // --- התאמה למודל הנתונים המקורי ---
-        // עליך להשתמש ב-URL הזה שהוא ייחודי לניהול תלמידים.
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-or9S6YsKkBaFzbsmIZwsYe2ZUNOuBHo7xL2J9-2Roe2KBZzXoNAdU7WWm-uCju-zrA/exec?mode=api';
+        // הוסף כאן את הקישור לסקרפיט שלך במידת הצורך
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxsziU0NtCDcX-3zCYXorERrs79QJARVzrMMIAg8F1GfW6dseaIFiZPD8bZQFsAeicwWg/exec';
         
         let students = [];
         let recordingsLibrary = { parshiot: {}, shabbat: {}, special: {} };
@@ -402,7 +412,7 @@
         window.openModal = (id) => { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
         window.closeModal = (id) => { document.getElementById(id).classList.remove('active'); document.body.style.overflow = 'auto'; }
 
-        // --- לוגיקת סנכרון עם גוגל שיטס (נשמרה מהקוד המקורי שלך) ---
+        // --- לוגיקת סנכרון עם גוגל שיטס ---
         function makeJSONPRequest(url, callback, errorCallback) {
             const script = document.createElement('script');
             const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
@@ -425,11 +435,22 @@
         function loadFromGoogleSheets(callback) {
             syncToGoogleSheets('load', {}, function(response) {
                 if (response && response.success && response.data) {
-                    students = response.data.map(s => ({
-                        ...s,
-                        // תמיכה בעמודת שיעורים (חובה להוסיף בגיליון את העמודה!)
-                        lessons: s.lessons ? (typeof s.lessons === 'string' ? JSON.parse(s.lessons || "[]") : s.lessons) : []
-                    }));
+                    students = response.data.map(s => {
+                        let parsedLessons = [];
+                        try {
+                            if (typeof s.lessons === 'string' && s.lessons.trim() !== '') {
+                                parsedLessons = JSON.parse(s.lessons);
+                            } else if (Array.isArray(s.lessons)) {
+                                parsedLessons = s.lessons;
+                            }
+                        } catch(e) {
+                            parsedLessons = [];
+                        }
+                        return {
+                            ...s,
+                            lessons: parsedLessons
+                        };
+                    });
                     if (response.library) recordingsLibrary = response.library;
                     localStorage.setItem('barMitzvahStudents', JSON.stringify(students));
                 } else {
@@ -440,16 +461,15 @@
         }
 
         function saveToGoogleSheets(studentData, callback) {
-            // ממיר שיעורים ל-JSON מחרוזת לפני השמירה
             const dataToSave = { ...studentData, lessons: JSON.stringify(studentData.lessons || []) };
             syncToGoogleSheets('save', dataToSave, callback);
         }
 
-        // --- התחברות ---
+        // --- התחברות חכמה שמתעלמת מרווחים ---
         window.checkForDuplicateNames = () => {
             const name = document.getElementById('loginName').value.trim();
             const phoneSection = document.getElementById('phoneSection');
-            const matches = students.filter(s => s.name === name);
+            const matches = students.filter(s => (s.name || '').trim() === name);
             if (matches.length > 1) phoneSection.classList.remove('hidden');
             else phoneSection.classList.add('hidden');
         }
@@ -463,11 +483,13 @@
                 isAdmin = true;
                 currentUser = { name: 'מנהל המערכת' };
             } else {
-                const matches = students.filter(s => s.name === name);
+                // מתעלם מרווחים בטעות בהקלדה או בגיליון
+                const matches = students.filter(s => (s.name || '').trim() === name);
+                
                 if (matches.length === 0) return customAlert('תלמיד לא נמצא במערכת', true);
                 if (matches.length > 1 && !phone) return customAlert('יש להזין נייד לאימות', true);
                 if (matches.length > 1 && phone) {
-                    const exact = matches.find(s => s.studentPhone === phone || s.parentPhone === phone);
+                    const exact = matches.find(s => (s.studentPhone || '').trim() === phone || (s.parentPhone || '').trim() === phone);
                     if (!exact) return customAlert('הנייד לא תואם', true);
                     currentUser = exact;
                 } else {
@@ -543,7 +565,7 @@
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg text-slate-900 font-black text-xl">
-                                    ${s.name.charAt(0)}
+                                    ${(s.name || '?').charAt(0)}
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-bold text-white">${s.name}</h3>
@@ -641,7 +663,6 @@
         window.deleteLesson = async (index) => {
             if(!confirm('למחוק את תיעוד השיעור הזה?')) return;
             const student = students.find(s => s.id === currentEditingStudentId);
-            // צריך למצוא את האינדקס המקורי (כי המערך ממוין בתצוגה הפוך)
             const sorted = [...student.lessons].sort((a,b) => new Date(b.date) - new Date(a.date));
             const lessonToDelete = sorted[index];
             const realIndex = student.lessons.findIndex(l => l.date === lessonToDelete.date && l.summary === lessonToDelete.summary);
@@ -836,5 +857,3 @@
     </script>
 </body>
 </html>
-
-
