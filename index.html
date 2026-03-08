@@ -56,7 +56,7 @@
 
     <div id="globalLoader">
         <div class="spinner"></div>
-        <div class="text-white text-xl font-bold">טוען נתונים מהענן...</div>
+        <div class="text-white text-xl font-bold">מעבד נתונים מהענן...</div>
     </div>
 
     <div id="globalAlert" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[999999] hidden transition-all duration-300">
@@ -77,16 +77,21 @@
             
             <form onsubmit="handleLogin(event)">
                 <input type="text" id="loginName" placeholder="הכנס שם מלא..." required class="form-input w-full p-4 rounded-xl text-center mb-4 text-lg font-bold" oninput="checkForDuplicateNames()">
+                
                 <div id="phoneSection" class="hidden mb-4">
                     <input type="tel" id="loginPhone" placeholder="מספר הטלפון שלך..." class="form-input w-full p-4 rounded-xl text-center text-lg mb-2">
                     <p class="text-amber-400 text-xs">נמצא תלמיד עם שם זהה, הוסף נייד לאימות.</p>
                 </div>
-                <button type="submit" class="btn-primary w-full py-4 rounded-xl text-xl mt-2 shadow-lg">כניסה למערכת <i class="fas fa-arrow-left ml-2"></i></button>
+                
+                <button type="submit" class="btn-primary w-full py-4 rounded-xl text-xl mt-2 shadow-lg hover:scale-105 transition-transform">
+                    כניסה למערכת <i class="fas fa-arrow-left ml-2"></i>
+                </button>
             </form>
         </div>
     </div>
 
     <div id="mainSystem" class="container mx-auto px-4 py-8 hidden relative z-10">
+        
         <div class="flex flex-col md:flex-row justify-between items-center bg-slate-900/80 border border-slate-700 p-6 rounded-3xl mb-8 backdrop-blur-md shadow-xl">
             <div class="flex items-center gap-4 mb-4 md:mb-0">
                 <div class="w-14 h-14 bg-blue-900/50 rounded-full flex items-center justify-center border border-amber-400">
@@ -104,7 +109,7 @@
         </div>
 
         <div id="addStudentBtnWrapper" class="text-center mb-8 hidden">
-            <button onclick="showAddStudentForm()" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all">
+            <button onclick="showAddStudentForm()" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all transform hover:scale-105">
                 <i class="fas fa-plus-circle ml-2"></i> הוסף תלמיד חדש
             </button>
         </div>
@@ -133,6 +138,7 @@
                 <h3 class="text-xl font-bold gold-text"><i class="fas fa-user-shield ml-2"></i> פאנל מורה</h3>
                 <button onclick="toggleAdminSidebar()" class="text-slate-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
             </div>
+
             <div class="space-y-4 mb-8">
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
                     <div class="text-slate-400 text-sm">פעילים כעת</div>
@@ -143,14 +149,15 @@
                     <div class="text-3xl font-black text-green-400" id="sidebarCompletedCount">0</div>
                 </div>
             </div>
+
             <div class="space-y-3">
-                <button onclick="showLibraryEditor(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
+                <button onclick="showLibraryEditor(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center">
                     <i class="fas fa-headphones-alt w-8 text-amber-400 text-xl"></i> ספריית הקלטות
                 </button>
-                <button onclick="toggleCompletedStudents(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
+                <button onclick="toggleCompletedStudents(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center">
                     <i class="fas fa-history w-8 text-slate-400 text-xl"></i> תלמידי עבר
                 </button>
-                <button onclick="refreshData(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
+                <button onclick="refreshData(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center">
                     <i class="fas fa-sync-alt w-8 text-blue-400 text-xl"></i> רענן נתונים
                 </button>
                 <a href="index.html" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center block mt-4">
@@ -325,8 +332,8 @@
     </div>
 
     <script>
-        // --- שים כאן את הלינק המעודכן שלך ל-Apps Script! ---
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2BTQA4v7KaRs_lRIGijW7TFSoYtJk6-2-UpnAK5wx4eykR92QSvmF6GpIXJT-AqIx5w/exec?mode=api";
+        // --- הלינק שלך (נוקה מ-?mode=api כדי שהכל יעבוד חלק) ---
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2BTQA4v7KaRs_lRIGijW7TFSoYtJk6-2-UpnAK5wx4eykR92QSvmF6GpIXJT-AqIx5w/exec";
         
         let students = [];
         let recordingsLibrary = { parshiot: {}, shabbat: {}, special: {} };
@@ -406,17 +413,27 @@
         function syncToGoogleSheets(action, data, callback) {
             if (!GOOGLE_SCRIPT_URL) return callback && callback({ success: false });
             document.getElementById('globalLoader').style.display = 'flex';
+            
+            // מנקה את ?mode=api אם בטעות הוכנס ללינק
+            let baseUrl = GOOGLE_SCRIPT_URL;
+            if (baseUrl.includes('?mode=api')) {
+                baseUrl = baseUrl.replace('?mode=api', '');
+            }
+            
             const params = new URLSearchParams({ action: action, data: JSON.stringify(data) });
-            makeJSONPRequest(GOOGLE_SCRIPT_URL + '?' + params.toString(), 
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const finalUrl = baseUrl + separator + params.toString();
+            
+            makeJSONPRequest(finalUrl, 
                 function(res) { document.getElementById('globalLoader').style.display = 'none'; if(callback) callback(res); },
-                function(err) { document.getElementById('globalLoader').style.display = 'none'; if(callback) callback({success: false}); }
+                function(err) { document.getElementById('globalLoader').style.display = 'none'; if(callback) callback({success: false, error: err}); }
             );
         }
 
         function loadFromGoogleSheets(callback) {
             syncToGoogleSheets('load', {}, function(response) {
                 if (response && response.success && response.data) {
-                    students = response.data; // הנתונים המלאים (כולל Lessons) מה-GAS
+                    students = response.data;
                     if (response.library) recordingsLibrary = response.library;
                     localStorage.setItem('barMitzvahStudents', JSON.stringify(students));
                 } else {
@@ -426,11 +443,11 @@
             });
         }
 
-        // התחברות
+        // התחברות (חסינה משגיאות Number)
         window.checkForDuplicateNames = () => {
             const name = document.getElementById('loginName').value.trim();
             const phoneSection = document.getElementById('phoneSection');
-            const matches = students.filter(s => (s.name || '').trim() === name);
+            const matches = students.filter(s => String(s.name || '').trim() === name);
             if (matches.length > 1) phoneSection.classList.remove('hidden');
             else phoneSection.classList.add('hidden');
         }
@@ -444,11 +461,11 @@
                 isAdmin = true;
                 currentUser = { name: 'מנהל המערכת' };
             } else {
-                const matches = students.filter(s => (s.name || '').trim() === name);
+                const matches = students.filter(s => String(s.name || '').trim() === name);
                 if (matches.length === 0) return customAlert('תלמיד לא נמצא במערכת', true);
                 if (matches.length > 1 && !phone) return customAlert('יש להזין נייד לאימות', true);
                 if (matches.length > 1 && phone) {
-                    const exact = matches.find(s => (s.studentPhone || '').trim() === phone || (s.parentPhone || '').trim() === phone);
+                    const exact = matches.find(s => String(s.studentPhone || '').trim() === phone || String(s.parentPhone || '').trim() === phone);
                     if (!exact) return customAlert('הנייד לא תואם', true);
                     currentUser = exact;
                 } else {
@@ -511,7 +528,7 @@
             return 'עליית ראשון + שבת חתן';
         }
 
-        // בניית חומרי לימוד בכרטיסייה (ישירות)
+        // בניית חומרי לימוד בכרטיסייה
         function buildInlineMaterial(imgSrc, audioSrc, audioTitle, elementIdPrefix) {
             let html = '';
             
@@ -728,7 +745,8 @@
                     renderStudents();
                     document.getElementById('newLessonSummary').value = '';
                 } else {
-customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);                }
+                    customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);
+                }
             });
         }
 
@@ -748,7 +766,6 @@ customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);   
                             renderStudents();
                         });
                     } else {
-                        // תאימות לשיעורים ישנים שאין להם ID במערכת החדשה
                         saveToGoogleSheets(student, function() {
                             customAlert('השיעור נמחק בהצלחה');
                             renderLessonsList(student);
@@ -967,7 +984,8 @@ customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);   
                     saveToGoogleSheets(students[idx], (res) => { if(res.success) { customAlert('עודכן בהצלחה'); hideAddStudentForm(); renderStudents(); } });
                 }
             } else {
-                const newStudent = { id: 'std-' + Date.now(), lessons: [], ...studentData };
+                const newId = 'std-' + Date.now();
+                const newStudent = { id: newId, lessons: [], ...studentData };
                 students.push(newStudent);
                 saveToGoogleSheets(newStudent, (res) => { if(res.success) { customAlert('נוסף בהצלחה'); hideAddStudentForm(); renderStudents(); } });
             }
@@ -1035,7 +1053,7 @@ customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);   
             });
         }
 
-        // --- שונות ---
+        // שונות
         window.toggleAdminSidebar = () => {
             const sb = document.getElementById('adminSidebar');
             const ov = document.getElementById('sidebarOverlay');
@@ -1051,14 +1069,9 @@ customAlert('שגיאה: ' + (res.error || 'שגיאת תקשורת'), true);   
             loadFromGoogleSheets(() => { customAlert('נתונים רעננו בהצלחה'); renderStudents(); });
         }
 
-        // --- Init Load ---
         window.addEventListener('load', () => {
             loadFromGoogleSheets(() => {});
         });
     </script>
 </body>
 </html>
-
-
-
-
