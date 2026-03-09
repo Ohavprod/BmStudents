@@ -79,11 +79,15 @@
             <h2 class="text-2xl font-bold text-blue-200 mb-8">מערכת לימוד לבר מצווה</h2>
             
             <form onsubmit="handleLogin(event)">
-                <input type="text" id="loginName" placeholder="הכנס שם מלא..." required class="form-input w-full p-4 rounded-xl text-center mb-4 text-xl font-bold" oninput="checkForDuplicateNames()">
+                <input type="text" id="loginName" placeholder="הכנס שם מלא..." required class="form-input w-full p-4 rounded-xl text-center mb-4 text-xl font-bold" oninput="window.handleNameInput()">
                 
                 <div id="phoneSection" class="hidden mb-4">
                     <input type="tel" id="loginPhone" placeholder="מספר הטלפון שלך..." class="form-input w-full p-4 rounded-xl text-center text-xl mb-2">
                     <p class="text-amber-400 text-sm">נמצא תלמיד עם שם זהה, הוסף נייד לאימות.</p>
+                </div>
+
+                <div id="passwordSection" class="hidden mb-4">
+                    <input type="password" id="loginPassword" placeholder="הכנס סיסמת מנהל..." class="form-input w-full p-4 rounded-xl text-center text-xl mb-2 border-amber-500/50 focus:border-amber-400">
                 </div>
                 
                 <button type="submit" class="btn-primary w-full py-4 rounded-xl text-2xl mt-2 shadow-lg hover:scale-105 transition-transform">
@@ -372,7 +376,7 @@
         let currentEditingStudentId = null;
         let currentLibraryTab = 'parshiot';
 
-        // הפיכת פונקציות מרכזיות לזמינות גלובלית (window) למניעת שגיאות undefined
+        // הפיכת פונקציות מרכזיות לזמינות גלובלית
         window.customAlert = function(msg, isError = false) {
             const alm = document.getElementById('globalAlert');
             const txt = document.getElementById('globalAlertText');
@@ -431,7 +435,7 @@
             inputEl.onkeydown = (e) => { if(e.key === 'Enter') handleSub(); };
         };
 
-        // --- סנכרון עם גוגל שיטס בשיטת POST (ללא בעיית אורך כתובת) ---
+        // סנכרון עם גוגל שיטס בשיטת POST
         window.syncToGoogleSheets = async function(action, data, callback) {
             if (!GOOGLE_SCRIPT_URL) return callback && callback({ success: false });
             document.getElementById('globalLoader').style.display = 'flex';
@@ -443,7 +447,6 @@
                 const response = await fetch(baseUrl, {
                     method: 'POST',
                     body: JSON.stringify({ action: action, data: data }),
-                    // מונע בעיות CORS מגוגל
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                 });
                 
@@ -459,7 +462,6 @@
 
         window.loadFromGoogleSheets = function(callback) {
             document.getElementById('globalLoader').style.display = 'flex';
-            
             let baseUrl = GOOGLE_SCRIPT_URL;
             if (baseUrl.includes('?mode=api')) baseUrl = baseUrl.replace('?mode=api', '');
             
@@ -484,27 +486,44 @@
         };
 
         window.saveToGoogleSheets = function(studentData, callback) {
-            // שמירת התלמיד (את מערך השיעורים אנחנו מנהלים בגיליון נפרד ולכן לא שולחים כ-JSON ענק)
             window.syncToGoogleSheets('save', studentData, callback);
         };
 
-        // --- התחברות ---
-        window.checkForDuplicateNames = () => {
+        // התחברות - זיהוי אוטומטי של סיסמה ע"י הקלדת שם
+        window.handleNameInput = () => {
             const name = document.getElementById('loginName').value.trim();
             const phoneSection = document.getElementById('phoneSection');
-            const matches = students.filter(s => String(s.name || '').trim() === name);
-            if (matches.length > 1) phoneSection.classList.remove('hidden');
-            else phoneSection.classList.add('hidden');
+            const passwordSection = document.getElementById('passwordSection');
+            const passwordInput = document.getElementById('loginPassword');
+
+            if (name.toLowerCase() === 'admin' || name === 'אביב') {
+                phoneSection.classList.add('hidden');
+                passwordSection.classList.remove('hidden');
+                passwordInput.setAttribute('required', 'required');
+            } else {
+                passwordSection.classList.add('hidden');
+                passwordInput.removeAttribute('required');
+                passwordInput.value = '';
+                
+                const matches = students.filter(s => String(s.name || '').trim() === name);
+                if (matches.length > 1) phoneSection.classList.remove('hidden');
+                else phoneSection.classList.add('hidden');
+            }
         };
 
         window.handleLogin = (e) => {
             e.preventDefault();
             const name = document.getElementById('loginName').value.trim();
             const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
             
             if (name.toLowerCase() === 'admin' || name === 'אביב') {
-                isAdmin = true;
-                currentUser = { name: 'מנהל המערכת' };
+                if (password === 'aviv123') {
+                    isAdmin = true;
+                    currentUser = { name: 'מנהל המערכת' };
+                } else {
+                    return window.customAlert('סיסמה שגויה!', true);
+                }
             } else {
                 const matches = students.filter(s => String(s.name || '').trim() === name);
                 if (matches.length === 0) return window.customAlert('תלמיד לא נמצא במערכת', true);
@@ -531,9 +550,13 @@
             window.renderStudents();
         };
 
-        window.logout = () => { location.reload(); };
+        window.logout = () => { 
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('passwordSection').classList.add('hidden');
+            location.reload(); 
+        };
 
-        // --- שליטה בתמונות ואודיו ---
+        // שליטה בנגן אודיו ובתמונה
         window.skipAudio = (audioId, seconds) => {
             const audio = document.getElementById(audioId);
             if (audio) { audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + seconds)); }
@@ -550,7 +573,7 @@
             img.style.width = `${currentWidth}%`;
         };
 
-        // --- עזרים לרינדור ---
+        // חישובי תאריכים
         function calculateDaysRemaining(dateStr) {
             if (!dateStr) return 0;
             const eventDate = new Date(dateStr);
@@ -565,9 +588,23 @@
             return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
         }
         
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            if (typeof timeStr === 'string' && timeStr.includes('T')) {
+                const match = timeStr.match(/T(\d{2}:\d{2})/);
+                if (match && match[1]) return match[1];
+                
+                const d = new Date(timeStr);
+                if (!isNaN(d.getTime())) {
+                    return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+                }
+            }
+            return timeStr;
+        }
+
         function getEventTypeText(eventType) {
-            if(eventType === 'aliyah') return 'עליית ראשון';
-            if(eventType === 'shabbat-chatan') return 'שבת חתן';
+            if(eventType === 'aliyah') return 'עליית ראשון (ללא שבת)';
+            if(eventType === 'shabbat-chatan') return 'שבת חתן בלבד';
             return 'עליית ראשון + שבת חתן';
         }
 
@@ -578,11 +615,11 @@
                 html += `
                     <div class="relative group mb-5">
                         <div class="absolute top-3 left-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="window.zoomImg('img-${elementIdPrefix}', 1)" class="zoom-btn" title="הגדל"><i class="fas fa-search-plus"></i></button>
-                            <button onclick="window.zoomImg('img-${elementIdPrefix}', -1)" class="zoom-btn" title="הקטן"><i class="fas fa-search-minus"></i></button>
+                            <button type="button" onclick="window.zoomImg('img-${elementIdPrefix}', 1)" class="zoom-btn bg-slate-900 text-white p-2 rounded-full border border-slate-600 hover:bg-amber-500 hover:text-black" title="הגדל"><i class="fas fa-search-plus"></i></button>
+                            <button type="button" onclick="window.zoomImg('img-${elementIdPrefix}', -1)" class="zoom-btn bg-slate-900 text-white p-2 rounded-full border border-slate-600 hover:bg-amber-500 hover:text-black" title="הקטן"><i class="fas fa-search-minus"></i></button>
                         </div>
-                        <div class="rounded-xl border border-slate-600 bg-slate-900 overflow-auto max-h-[60vh] custom-scrollbar shadow-inner">
-                            <img id="img-${elementIdPrefix}" src="${imgSrc}" class="block mx-auto" style="width: 100%; max-width: none; height: auto; transition: width 0.2s ease;" data-width="100" onerror="this.style.display='none';">
+                        <div class="rounded-xl border border-slate-700 bg-slate-950 overflow-auto max-h-[70vh] custom-scrollbar shadow-inner text-center">
+                            <img id="img-${elementIdPrefix}" src="${imgSrc}" class="inline-block" style="width: 100%; height: auto; transition: width 0.2s ease; image-rendering: high-quality;" data-width="100" onerror="this.style.display='none';">
                         </div>
                     </div>
                 `;
@@ -637,11 +674,9 @@
             }
             document.getElementById('emptyState').classList.add('hidden');
 
-            // מיון פעילים - הכי קרוב לאירוע מופיע למעלה
             let activeStudents = displayStudents.filter(s => calculateDaysRemaining(s.eventDate) >= 0);
             activeStudents.sort((a,b) => new Date(a.eventDate) - new Date(b.eventDate));
 
-            // מיון סיימו - מי שסיים הכי לאחרונה מופיע למעלה
             let pastStudents = displayStudents.filter(s => calculateDaysRemaining(s.eventDate) < 0);
             pastStudents.sort((a,b) => new Date(b.eventDate) - new Date(a.eventDate));
 
@@ -655,8 +690,8 @@
                 
                 const lessonCount = (s.lessons || []).length;
                 const lessonsBadge = isAdmin 
-                    ? `<button onclick="window.openLessonModal('${s.id}')" class="action-btn btn-lesson w-full mt-5 text-lg"><i class="fas fa-book"></i> מעקב שיעורים (${lessonCount})</button>`
-                    : `<div class="bg-blue-900/40 text-blue-200 text-center py-3 rounded-xl font-bold text-base border border-blue-800/50 mt-5"><i class="fas fa-trophy text-amber-400 ml-1"></i> עברת עד כה ${lessonCount} שיעורים במערכת!</div>`;
+                    ? `<button type="button" onclick="window.openLessonModal('${s.id}')" class="action-btn btn-lesson w-full mt-5 text-lg"><i class="fas fa-book"></i> מעקב שיעורים (${lessonCount})</button>`
+                    : `<div class="bg-blue-900/40 text-blue-200 text-center py-3 rounded-xl font-bold text-base border border-blue-800/50 mt-5"><i class="fas fa-trophy text-amber-400 ml-1"></i> מספר שיעורים עד כה: ${lessonCount}</div>`;
 
                 const includesMorning = (s.eventType === 'aliyah' || s.eventType === 'both');
                 const includesShabbat = (s.eventType === 'shabbat-chatan' || s.eventType === 'both');
@@ -701,8 +736,8 @@
                 }
 
                 let nextLessonHtml = '';
-                if (s.nextLessonDate) {
-                    let timeStr = s.nextLessonTime ? ` בשעה ${s.nextLessonTime}` : '';
+                if (s.nextLessonDate && !isDone) {
+                    let timeStr = s.nextLessonTime ? ` בשעה ${formatTime(s.nextLessonTime)}` : '';
                     nextLessonHtml = `
                         <div class="bg-gradient-to-r from-amber-400 to-amber-600 text-slate-900 p-4 rounded-xl border-2 border-amber-300 shadow-[0_0_15px_rgba(251,191,36,0.4)] mt-5 mb-2 text-center">
                             <div class="font-black text-lg mb-1"><i class="far fa-clock"></i> מועד השיעור הבא שלך:</div>
@@ -739,8 +774,8 @@
 
                         ${isAdmin ? `
                             <div class="flex gap-3 mt-6 pt-5 border-t border-slate-700/50">
-                                <button onclick="window.editStudent('${s.id}')" class="action-btn btn-edit flex-1 text-lg"><i class="fas fa-edit"></i> ערוך תלמיד</button>
-                                <button onclick="window.deleteStudent('${s.id}')" class="action-btn btn-delete px-5 text-lg"><i class="fas fa-trash"></i></button>
+                                <button type="button" onclick="window.editStudent('${s.id}')" class="action-btn btn-edit flex-1 text-lg"><i class="fas fa-edit"></i> ערוך תלמיד</button>
+                                <button type="button" onclick="window.deleteStudent('${s.id}')" class="action-btn btn-delete px-5 text-lg"><i class="fas fa-trash"></i></button>
                             </div>
                         ` : ''}
                     </div>
@@ -776,7 +811,7 @@
                         </div>
                         <div class="text-left">
                             <div class="text-amber-400 font-black text-lg">${formatDate(s.nextLessonDate)}</div>
-                            <div class="text-white font-bold">${s.nextLessonTime || 'שעה לא צוינה'}</div>
+                            <div class="text-white font-bold">${formatTime(s.nextLessonTime) || 'שעה לא צוינה'}</div>
                         </div>
                     </div>
                 `).join('');
@@ -790,8 +825,11 @@
             if(!student) return;
             currentEditingStudentId = id;
             document.getElementById('lessonModalTitle').innerText = `יומן שיעורים: ${student.name}`;
-            document.getElementById('modalNextLessonDate').value = student.nextLessonDate || '';
-            document.getElementById('modalNextLessonTime').value = student.nextLessonTime || '';
+            
+            const nDate = student.nextLessonDate ? new Date(student.nextLessonDate).toISOString().split('T')[0] : '';
+            document.getElementById('modalNextLessonDate').value = nDate;
+            document.getElementById('modalNextLessonTime').value = formatTime(student.nextLessonTime) || '';
+            
             window.resetLessonForm();
             window.renderLessonsList(student);
             window.openModal('lessonModal');
@@ -831,8 +869,8 @@
                             <div class="text-white text-lg bg-slate-900/50 p-3 rounded-lg">${l.summary}</div>
                         </div>
                         <div class="flex flex-col gap-2 mr-3">
-                            <button onclick="window.editLesson(${idx})" class="text-blue-400 hover:text-blue-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-pencil-alt"></i></button>
-                            <button onclick="window.deleteLesson(${idx})" class="text-red-400 hover:text-red-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-trash"></i></button>
+                            <button type="button" onclick="window.editLesson(${idx})" class="text-blue-400 hover:text-blue-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-pencil-alt"></i></button>
+                            <button type="button" onclick="window.deleteLesson(${idx})" class="text-red-400 hover:text-red-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 `).join('');
@@ -969,8 +1007,8 @@
                         <div class="flex justify-between items-start mb-3">
                             <h5 class="text-xl font-bold text-white">${name}</h5>
                             <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
-                                <button onclick="window.editLibraryItem('${tabName}', '${name}')" class="text-blue-400 hover:text-blue-300 p-2"><i class="fas fa-edit"></i></button>
-                                <button onclick="window.deleteLibraryItem('${tabName}', '${name}')" class="text-red-400 hover:text-red-300 p-2"><i class="fas fa-trash"></i></button>
+                                <button type="button" onclick="window.editLibraryItem('${tabName}', '${name}')" class="text-blue-400 hover:text-blue-300 p-2"><i class="fas fa-edit"></i></button>
+                                <button type="button" onclick="window.deleteLibraryItem('${tabName}', '${name}')" class="text-red-400 hover:text-red-300 p-2"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                         <div class="text-base text-slate-400 space-y-1">
@@ -992,8 +1030,8 @@
                     <input type="url" id="edit-image-${itemName}" value="${item.image || ''}" class="form-input w-full p-3 mb-2 rounded-lg text-base" placeholder="לינק לתמונה">
                     <input type="url" id="edit-audio-${itemName}" value="${item.audio || ''}" class="form-input w-full p-3 mb-4 rounded-lg text-base" placeholder="לינק להקלטה">
                     <div class="flex gap-2">
-                        <button onclick="window.saveLibraryItem('${tabName}', '${itemName}')" class="bg-green-600 text-white px-4 py-3 rounded-lg flex-1 font-bold text-lg hover:bg-green-500">שמור</button>
-                        <button onclick="window.switchLibraryTab('${tabName}')" class="bg-slate-600 text-white px-4 py-3 rounded-lg flex-1 text-lg hover:bg-slate-500">ביטול</button>
+                        <button type="button" onclick="window.saveLibraryItem('${tabName}', '${itemName}')" class="bg-green-600 text-white px-4 py-3 rounded-lg flex-1 font-bold text-lg hover:bg-green-500">שמור</button>
+                        <button type="button" onclick="window.switchLibraryTab('${tabName}')" class="bg-slate-600 text-white px-4 py-3 rounded-lg flex-1 text-lg hover:bg-slate-500">ביטול</button>
                     </div>
                 </div>
             `;
@@ -1041,7 +1079,7 @@
             });
         }
 
-        // --- טפסים להוספת תלמיד ---
+        // --- הוספת / עריכת תלמיד ---
         window.createLibrarySelectorHTML = function(type, targetImageId, targetAudioId, targetTitleId, placeholder) {
             const lib = recordingsLibrary[type] || {};
             let options = Object.keys(lib).map(k => `<option value="${k}">${k}</option>`).join('');
@@ -1237,4 +1275,4 @@
         });
     </script>
 </body>
-</html>כ
+</html>
