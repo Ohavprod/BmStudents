@@ -8,7 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        html { font-size: 14px; }
+        /* הגדלת פונט בסיס */
+        html { font-size: 15px; }
         body { font-family: 'Heebo', sans-serif; background-color: #051c42; color: #ffffff; min-height: 100vh; overflow-x: hidden; margin: 0; padding: 0; }
         #fixed-background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background-image: linear-gradient(180deg, #051c42 0%, #021029 100%); pointer-events: none; }
         .gold-text { background: linear-gradient(45deg, #fbbf24, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
@@ -19,7 +20,7 @@
 
         .glass-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); backdrop-filter: blur(12px); border: 1px solid rgba(251, 191, 36, 0.25); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         
-        .student-card { background: linear-gradient(145deg, rgba(40, 56, 84, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(96, 165, 250, 0.25); border-top: 1px solid rgba(251, 191, 36, 0.4); border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); padding: 1.5rem; }
+        .student-card { background: linear-gradient(145deg, rgba(40, 56, 84, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(96, 165, 250, 0.25); border-top: 1px solid rgba(251, 191, 36, 0.4); border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); padding: 1.8rem; }
         
         .btn-primary { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #0f172a; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); font-weight: 900; }
         .btn-primary:hover { background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%); color: white; }
@@ -27,21 +28,24 @@
         .form-input { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(96, 165, 250, 0.3); color: white; transition: all 0.3s ease; }
         .form-input:focus { border-color: #fbbf24; background: rgba(15, 23, 42, 0.9); outline: none; }
         
-        .info-bubble { background: rgba(2, 6, 23, 0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 10px 15px; display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
-        .info-bubble i { width: 20px; text-align: center; color: #60a5fa; font-size: 1.2rem; }
+        .info-bubble { background: rgba(2, 6, 23, 0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 10px 15px; display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 1.05rem; }
+        .info-bubble i { width: 20px; text-align: center; color: #60a5fa; font-size: 1.3rem; }
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 99999; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); padding: 10px; }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: #0f172a; border-radius: 1.5rem; border: 1px solid #334155; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 20px; }
+        .modal-content { background: #0f172a; border-radius: 1.5rem; border: 1px solid #334155; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 25px; }
 
-        .action-btn { padding: 10px; border-radius: 1rem; font-weight: bold; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border: none; }
+        .action-btn { padding: 12px; border-radius: 1rem; font-weight: bold; font-size: 1.05rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border: none; }
         .btn-edit { background: linear-gradient(135deg, #475569, #334155); color: white; border: 1px solid #64748b; } 
         .btn-lesson { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; }
         .btn-delete { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
 
-        .inline-material-box { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 1rem; padding: 1rem; margin-top: 1rem; }
-        .audio-ctrl-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 0.8rem; transition: 0.2s; cursor: pointer; }
+        .inline-material-box { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 1rem; padding: 1.5rem; margin-top: 1rem; }
+        .audio-ctrl-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; transition: 0.2s; cursor: pointer; }
         .audio-ctrl-btn:hover { background: #3b82f6; border-color: #60a5fa; }
+        
+        .zoom-btn { background: rgba(0,0,0,0.7); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); transition: 0.2s; font-size: 1.2rem; }
+        .zoom-btn:hover { background: #fbbf24; color: black; border-color: #fbbf24; }
         
         .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #000; border-radius: 8px; }
@@ -59,7 +63,7 @@
     </div>
 
     <div id="globalAlert" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[999999] hidden transition-all duration-300">
-        <div class="bg-blue-600 text-white px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2" id="globalAlertContent">
+        <div class="bg-blue-600 text-white px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 text-lg" id="globalAlertContent">
             <span id="globalAlertText"></span>
         </div>
     </div>
@@ -67,22 +71,22 @@
     <div id="loginScreen" class="min-h-screen flex items-center justify-center relative z-10 px-4">
         <div class="glass-card rounded-3xl p-10 max-w-md w-full text-center">
             <div class="mb-6 flex justify-center">
-                <div class="w-20 h-20 bg-blue-900/50 rounded-full flex items-center justify-center border-2 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.3)]">
-                    <i class="fas fa-graduation-cap text-4xl text-amber-400"></i>
+                <div class="w-24 h-24 bg-blue-900/50 rounded-full flex items-center justify-center border-2 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+                    <i class="fas fa-graduation-cap text-5xl text-amber-400"></i>
                 </div>
             </div>
-            <h1 class="text-3xl font-black text-white mb-2">אביב <span class="gold-text">ויצמן</span></h1>
-            <h2 class="text-xl font-bold text-blue-200 mb-8">מערכת לימוד לבר מצווה</h2>
+            <h1 class="text-4xl font-black text-white mb-2">אביב <span class="gold-text">ויצמן</span></h1>
+            <h2 class="text-2xl font-bold text-blue-200 mb-8">מערכת לימוד לבר מצווה</h2>
             
             <form onsubmit="handleLogin(event)">
-                <input type="text" id="loginName" placeholder="הכנס שם מלא..." required class="form-input w-full p-4 rounded-xl text-center mb-4 text-lg font-bold" oninput="checkForDuplicateNames()">
+                <input type="text" id="loginName" placeholder="הכנס שם מלא..." required class="form-input w-full p-4 rounded-xl text-center mb-4 text-xl font-bold" oninput="checkForDuplicateNames()">
                 
                 <div id="phoneSection" class="hidden mb-4">
-                    <input type="tel" id="loginPhone" placeholder="מספר הטלפון שלך..." class="form-input w-full p-4 rounded-xl text-center text-lg mb-2">
-                    <p class="text-amber-400 text-xs">נמצא תלמיד עם שם זהה, הוסף נייד לאימות.</p>
+                    <input type="tel" id="loginPhone" placeholder="מספר הטלפון שלך..." class="form-input w-full p-4 rounded-xl text-center text-xl mb-2">
+                    <p class="text-amber-400 text-sm">נמצא תלמיד עם שם זהה, הוסף נייד לאימות.</p>
                 </div>
                 
-                <button type="submit" class="btn-primary w-full py-4 rounded-xl text-xl mt-2 shadow-lg hover:scale-105 transition-transform">
+                <button type="submit" class="btn-primary w-full py-4 rounded-xl text-2xl mt-2 shadow-lg hover:scale-105 transition-transform">
                     כניסה למערכת <i class="fas fa-arrow-left ml-2"></i>
                 </button>
             </form>
@@ -93,33 +97,33 @@
         
         <div class="flex flex-col md:flex-row justify-between items-center bg-slate-900/80 border border-slate-700 p-6 rounded-3xl mb-8 backdrop-blur-md shadow-xl">
             <div class="flex items-center gap-4 mb-4 md:mb-0">
-                <div class="w-14 h-14 bg-blue-900/50 rounded-full flex items-center justify-center border border-amber-400">
-                    <i class="fas fa-user-graduate text-2xl text-amber-400"></i>
+                <div class="w-16 h-16 bg-blue-900/50 rounded-full flex items-center justify-center border border-amber-400">
+                    <i class="fas fa-user-graduate text-3xl text-amber-400"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-black text-white">מערכת לימוד <span class="gold-text">בר מצווה</span></h1>
-                    <div id="welcomeMessage" class="text-slate-400 text-sm"></div>
+                    <h1 class="text-3xl font-black text-white">מערכת לימוד <span class="gold-text">בר מצווה</span></h1>
+                    <div id="welcomeMessage" class="text-blue-200 font-bold text-lg mt-1"></div>
                 </div>
             </div>
             <div class="flex gap-3">
-                <button id="adminToolsBtn" onclick="toggleAdminSidebar()" class="hidden bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl font-bold transition shadow-lg">ניהול <i class="fas fa-cog"></i></button>
-                <button onclick="logout()" class="bg-slate-700 hover:bg-slate-600 text-white px-5 py-2 rounded-xl font-bold transition shadow-lg">יציאה <i class="fas fa-sign-out-alt"></i></button>
+                <button id="adminToolsBtn" onclick="toggleAdminSidebar()" class="hidden bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold transition shadow-lg text-lg">ניהול <i class="fas fa-cog"></i></button>
+                <button onclick="logout()" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition shadow-lg text-lg">יציאה <i class="fas fa-sign-out-alt"></i></button>
             </div>
         </div>
 
         <div id="addStudentBtnWrapper" class="text-center mb-8 hidden">
-            <button onclick="showAddStudentForm()" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all transform hover:scale-105">
+            <button onclick="showAddStudentForm()" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold text-xl shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all transform hover:scale-105">
                 <i class="fas fa-plus-circle ml-2"></i> הוסף תלמיד חדש
             </button>
         </div>
 
-        <div id="studentsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto"></div>
+        <div id="studentsGrid" class="grid grid-cols-1 gap-8 max-w-4xl mx-auto"></div>
 
-        <div id="completedStudentsSection" class="hidden mt-16 max-w-6xl mx-auto">
+        <div id="completedStudentsSection" class="hidden mt-16 max-w-4xl mx-auto">
             <div class="flex items-center justify-between mb-6 border-b border-slate-700 pb-4">
                 <h3 class="text-2xl font-black text-slate-300"><i class="fas fa-check-circle text-green-500 ml-2"></i> תלמידים שסיימו</h3>
             </div>
-            <div id="completedStudentsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 opacity-70"></div>
+            <div id="completedStudentsGrid" class="grid grid-cols-1 gap-8 opacity-70"></div>
         </div>
 
         <div id="emptyState" class="text-center py-16 hidden">
@@ -140,84 +144,103 @@
 
             <div class="space-y-4 mb-8">
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                    <div class="text-slate-400 text-sm">פעילים כעת</div>
-                    <div class="text-3xl font-black text-blue-400" id="sidebarActiveCount">0</div>
+                    <div class="text-slate-400 text-base">פעילים כעת</div>
+                    <div class="text-4xl font-black text-blue-400" id="sidebarActiveCount">0</div>
                 </div>
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                    <div class="text-slate-400 text-sm">סיימו אירוע</div>
-                    <div class="text-3xl font-black text-green-400" id="sidebarCompletedCount">0</div>
+                    <div class="text-slate-400 text-base">סיימו אירוע</div>
+                    <div class="text-4xl font-black text-green-400" id="sidebarCompletedCount">0</div>
                 </div>
             </div>
 
             <div class="space-y-3">
-                <button onclick="showLibraryEditor(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
-                    <i class="fas fa-headphones-alt w-8 text-amber-400 text-xl"></i> ספריית הקלטות
+                <button onclick="window.openGlobalCalendar(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center text-lg">
+                    <i class="far fa-calendar-alt w-8 text-indigo-400 text-2xl"></i> יומן שיעורים קרובים
                 </button>
-                <button onclick="toggleCompletedStudents(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
-                    <i class="fas fa-history w-8 text-slate-400 text-xl"></i> תלמידי עבר
+                <button onclick="showLibraryEditor(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center text-lg mt-4">
+                    <i class="fas fa-headphones-alt w-8 text-amber-400 text-2xl"></i> ספריית הקלטות
                 </button>
-                <button onclick="refreshData(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl text-right font-bold transition flex items-center">
-                    <i class="fas fa-sync-alt w-8 text-blue-400 text-xl"></i> רענן נתונים
+                <button onclick="toggleCompletedStudents(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center text-lg">
+                    <i class="fas fa-history w-8 text-slate-400 text-2xl"></i> תלמידי עבר
                 </button>
-                <a href="index.html" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center block mt-4">
-                    <i class="fas fa-home w-8 text-purple-400 text-xl"></i> חזור לאתר הראשי
+                <button onclick="refreshData(); toggleAdminSidebar();" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center text-lg">
+                    <i class="fas fa-sync-alt w-8 text-blue-400 text-2xl"></i> רענן נתונים
+                </button>
+                <a href="index.html" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white p-4 rounded-xl text-right font-bold transition flex items-center block mt-6 text-lg">
+                    <i class="fas fa-home w-8 text-purple-400 text-2xl"></i> חזור לאתר הראשי
                 </a>
             </div>
         </div>
     </div>
     <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[90]" onclick="toggleAdminSidebar()"></div>
 
+    <div id="globalCalendarModal" class="modal-overlay">
+        <div class="modal-content !max-w-3xl bg-slate-900 border border-indigo-500/50">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4 sticky top-0 bg-slate-900 z-10">
+                <h3 class="text-3xl font-black text-white"><i class="far fa-calendar-alt text-indigo-400 ml-2"></i> יומן שיעורים קרובים</h3>
+                <button onclick="closeModal('globalCalendarModal')" class="text-slate-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="globalCalendarList" class="space-y-4"></div>
+        </div>
+    </div>
+
     <div id="lessonModal" class="modal-overlay">
         <div class="modal-content !max-w-2xl bg-slate-900 border border-amber-500/50">
             <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4 sticky top-0 bg-slate-900 z-10">
                 <h3 class="text-2xl font-bold text-white"><i class="fas fa-book text-amber-400 ml-2"></i> <span id="lessonModalTitle">מעקב שיעורים</span></h3>
-                <button onclick="closeModal('lessonModal')" class="text-slate-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
+                <button onclick="closeModal('lessonModal')" class="text-slate-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
             </div>
             
-            <div class="mb-4 bg-indigo-900/30 p-4 rounded-xl border border-indigo-800/50 flex justify-between items-center">
-                <div>
-                    <h4 class="text-indigo-300 font-bold mb-1 text-sm">תאריך שיעור הבא:</h4>
-                    <input type="date" id="modalNextLessonDate" class="form-input p-2 rounded-lg text-sm bg-slate-900" onchange="updateNextLessonDate()">
-                </div>
-                <span class="font-bold text-blue-200" id="lessonCountBadge">סה"כ שיעורים: 0</span>
-            </div>
-
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6">
-                <h4 class="text-amber-400 font-bold mb-3 text-sm">הוסף/ערוך תיעוד שיעור:</h4>
-                <div class="flex flex-col gap-3">
-                    <input type="hidden" id="editingLessonId" value="">
-                    <input type="date" id="newLessonDate" class="form-input w-full p-3 rounded-lg">
-                    <textarea id="newLessonSummary" placeholder="לאן הגענו? (לדוגמה: עברנו על עליית ראשון והטעמים...)" class="form-input w-full p-3 rounded-lg h-20"></textarea>
+            <div class="mb-4 bg-indigo-900/30 p-4 rounded-xl border border-indigo-800/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex-1 w-full">
+                    <h4 class="text-indigo-300 font-bold mb-2 text-base">קביעת שיעור הבא לתלמיד:</h4>
                     <div class="flex gap-2">
-                        <button id="saveLessonBtn" onclick="addNewLesson()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-lg transition shadow-md flex-1">שמור שיעור</button>
-                        <button id="cancelEditLessonBtn" onclick="resetLessonForm()" class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 rounded-lg transition hidden px-4">ביטול עריכה</button>
+                        <input type="date" id="modalNextLessonDate" class="form-input flex-1 p-2 rounded-lg text-base bg-slate-900" title="תאריך">
+                        <input type="time" id="modalNextLessonTime" class="form-input w-32 p-2 rounded-lg text-base bg-slate-900" title="שעה">
+                        <button onclick="updateNextLessonDate()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-500">קבע</button>
                     </div>
                 </div>
             </div>
 
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6">
+                <h4 class="text-amber-400 font-bold mb-3 text-base">הוסף/ערוך תיעוד שיעור שהתקיים:</h4>
+                <div class="flex flex-col gap-3">
+                    <input type="hidden" id="editingLessonId" value="">
+                    <input type="date" id="newLessonDate" class="form-input w-full p-3 rounded-lg text-base">
+                    <textarea id="newLessonSummary" placeholder="מה למדנו בשיעור? (לדוגמה: עברנו על עליית ראשון והטעמים...)" class="form-input w-full p-3 rounded-lg h-24 text-base"></textarea>
+                    <div class="flex gap-2">
+                        <button id="saveLessonBtn" onclick="addNewLesson()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition shadow-md flex-1 text-lg">שמור שיעור</button>
+                        <button id="cancelEditLessonBtn" onclick="resetLessonForm()" class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg transition hidden px-6 text-lg">ביטול עריכה</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 text-left">
+                <span class="bg-blue-900/50 text-blue-200 px-3 py-1 rounded-full font-bold text-sm border border-blue-800/50" id="lessonCountBadge">סה"כ שיעורים: 0</span>
+            </div>
             <div id="lessonsList" class="space-y-3"></div>
         </div>
     </div>
 
     <div id="addStudentForm" class="modal-overlay">
-        <div class="modal-content !max-w-3xl">
+        <div class="modal-content !max-w-4xl">
             <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
-                <h3 class="text-2xl font-bold text-white" id="studentFormTitle">הוסף תלמיד חדש</h3>
-                <button onclick="hideAddStudentForm()" class="text-slate-400 hover:text-white text-2xl"><i class="fas fa-times"></i></button>
+                <h3 class="text-3xl font-bold text-white" id="studentFormTitle">הוסף תלמיד חדש</h3>
+                <button onclick="hideAddStudentForm()" class="text-slate-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
             </div>
-            <form id="studentForm" onsubmit="addStudent(event)" class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label class="block text-sm text-slate-400 mb-1">שם התלמיד</label><input type="text" id="studentName" required class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">תאריך האירוע (הנחת תפילין)</label><input type="date" id="eventDate" required class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">תאריך לידה עברי</label><input type="text" id="hebrewBirthDate" class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">שם הפרשה</label><input type="text" id="parsha" class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">טלפון התלמיד</label><input type="tel" id="studentPhone" class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">שם ההורה</label><input type="text" id="parentName" class="form-input w-full p-3 rounded-xl"></div>
-                    <div><label class="block text-sm text-slate-400 mb-1">טלפון ההורה</label><input type="tel" id="parentPhone" class="form-input w-full p-3 rounded-xl"></div>
+            <form id="studentForm" onsubmit="addStudent(event)" class="space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div><label class="block text-base text-slate-400 mb-1">שם התלמיד</label><input type="text" id="studentName" required class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">תאריך האירוע</label><input type="date" id="eventDate" required class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">תאריך לידה עברי</label><input type="text" id="hebrewBirthDate" class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">שם הפרשה</label><input type="text" id="parsha" class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">טלפון התלמיד</label><input type="tel" id="studentPhone" class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">שם ההורה</label><input type="text" id="parentName" class="form-input w-full p-3 rounded-xl text-lg"></div>
+                    <div><label class="block text-base text-slate-400 mb-1">טלפון ההורה</label><input type="tel" id="parentPhone" class="form-input w-full p-3 rounded-xl text-lg"></div>
                     <div>
-                        <label class="block text-sm text-slate-400 mb-1">סוג קריאה באירוע</label>
-                        <select id="eventType" onchange="toggleEventDetails()" class="form-input w-full p-3 rounded-xl">
-                            <option value="aliyah">עליית ראשון בלבד (ללא שבת חתן)</option>
+                        <label class="block text-base text-slate-400 mb-1">סוג קריאה באירוע</label>
+                        <select id="eventType" onchange="toggleEventDetails()" class="form-input w-full p-3 rounded-xl text-lg">
+                            <option value="aliyah">עליית ראשון בלבד (ללא שבת)</option>
                             <option value="shabbat-chatan">שבת חתן בלבד (ללא עליית ראשון)</option>
                             <option value="both">עליית ראשון + שבת חתן</option>
                         </select>
@@ -225,15 +248,15 @@
                 </div>
 
                 <div id="shabbatChatanDateField" class="hidden">
-                    <label class="block text-sm text-slate-400 mb-1">תאריך שבת חתן</label>
-                    <input type="date" id="shabbatChatanDate" class="form-input w-full p-3 rounded-xl">
+                    <label class="block text-base text-slate-400 mb-1">תאריך שבת חתן</label>
+                    <input type="date" id="shabbatChatanDate" class="form-input w-full p-3 rounded-xl text-lg">
                 </div>
 
-                <div id="morningDetails" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 mt-4">
-                    <h4 class="text-amber-400 font-bold mb-3"><i class="fas fa-sun"></i> חומרי עליית ראשון</h4>
+                <div id="morningDetails" class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 mt-4">
+                    <h4 class="text-amber-400 font-bold mb-4 text-lg"><i class="fas fa-sun"></i> חומרי עליית ראשון</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <select id="morningReading" onchange="updateMorningLibrarySelector()" class="form-input w-full p-2 rounded-lg mb-2">
+                            <select id="morningReading" onchange="updateMorningLibrarySelector()" class="form-input w-full p-3 rounded-lg mb-3 text-base">
                                 <option value="parsha">פרשה רגילה</option>
                                 <option value="rosh-chodesh">ראש חודש</option>
                                 <option value="holiday">חג / אחר</option>
@@ -241,51 +264,51 @@
                             <div id="morningLibrarySelector"></div>
                         </div>
                         <div>
-                            <input type="url" id="morningImage" placeholder="לינק לתמונה (קטע טקסט)" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="url" id="morningAudio" placeholder="לינק להקלטה" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="text" id="morningAudioTitle" placeholder="כותרת להקלטה" value="עליית ראשון" class="form-input w-full p-2 rounded-lg text-sm">
+                            <input type="url" id="morningImage" placeholder="לינק לתמונה (קטע טקסט)" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="url" id="morningAudio" placeholder="לינק להקלטה" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="text" id="morningAudioTitle" placeholder="כותרת להקלטה" value="עליית ראשון" class="form-input w-full p-3 rounded-lg text-base">
                         </div>
                     </div>
                 </div>
 
-                <div id="shabbatChatanDetails" class="hidden bg-slate-800/50 p-4 rounded-xl border border-slate-700 mt-4">
-                    <h4 class="text-blue-400 font-bold mb-3"><i class="fas fa-star-of-david"></i> חומרי שבת חתן</h4>
-                    <select id="shabbatReading" onchange="toggleShabbatImages(); updateShabbatLibrarySelectors()" class="form-input w-full p-2 rounded-lg mb-3">
+                <div id="shabbatChatanDetails" class="hidden bg-slate-800/50 p-5 rounded-xl border border-slate-700 mt-4">
+                    <h4 class="text-blue-400 font-bold mb-4 text-lg"><i class="fas fa-star-of-david"></i> חומרי שבת חתן</h4>
+                    <select id="shabbatReading" onchange="toggleShabbatImages(); updateShabbatLibrarySelectors()" class="form-input w-full p-3 rounded-lg mb-4 text-base">
                         <option value="ראשון בלבד">עליית ראשון בלבד בשבת</option>
                         <option value="ראשון ומפטיר">הפטרה + מפטיר</option>
                         <option value="other">אחר (הקלדה חופשית)</option>
                     </select>
-                    <input type="text" id="otherReading" placeholder="פרט..." class="form-input w-full p-2 rounded-lg mb-3 hidden">
+                    <input type="text" id="otherReading" placeholder="פרט..." class="form-input w-full p-3 rounded-lg mb-4 text-base hidden">
                     
                     <div id="singleShabbatImage" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div id="shabbatLibrarySelector"></div>
                         <div>
-                            <input type="url" id="shabbatImage" placeholder="לינק לתמונה" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="url" id="shabbatAudio" placeholder="לינק להקלטה" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="text" id="shabbatAudioTitle" placeholder="כותרת להקלטה" value="הפטרה" class="form-input w-full p-2 rounded-lg text-sm">
+                            <input type="url" id="shabbatImage" placeholder="לינק לתמונה" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="url" id="shabbatAudio" placeholder="לינק להקלטה" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="text" id="shabbatAudioTitle" placeholder="כותרת להקלטה" value="הפטרה" class="form-input w-full p-3 rounded-lg text-base">
                         </div>
                     </div>
 
-                    <div id="multipleShabbatImages" class="hidden space-y-4">
-                        <div class="border border-slate-700 p-3 rounded-lg">
-                            <h5 class="text-sm font-bold text-slate-300 mb-2">ראשון / קריאה 1</h5>
-                            <div id="rishonLibrarySelector" class="mb-2"></div>
-                            <input type="url" id="rishonImage" placeholder="לינק לתמונה" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="url" id="rishonAudio" placeholder="לינק לאודיו" class="form-input w-full p-2 rounded-lg text-sm">
+                    <div id="multipleShabbatImages" class="hidden space-y-5">
+                        <div class="border border-slate-700 p-4 rounded-xl">
+                            <h5 class="text-base font-bold text-slate-300 mb-3">ראשון / קריאה 1</h5>
+                            <div id="rishonLibrarySelector" class="mb-3"></div>
+                            <input type="url" id="rishonImage" placeholder="לינק לתמונה" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="url" id="rishonAudio" placeholder="לינק לאודיו" class="form-input w-full p-3 rounded-lg text-base">
                             <input type="hidden" id="rishonAudioTitle" value="קריאה ראשונה">
                         </div>
-                        <div class="border border-slate-700 p-3 rounded-lg">
-                            <h5 class="text-sm font-bold text-slate-300 mb-2">הפטרה / מפטיר</h5>
-                            <div id="maftirLibrarySelector" class="mb-2"></div>
-                            <input type="url" id="maftirImage" placeholder="לינק לתמונה" class="form-input w-full p-2 rounded-lg mb-2 text-sm">
-                            <input type="url" id="maftirAudio" placeholder="לינק לאודיו" class="form-input w-full p-2 rounded-lg text-sm">
+                        <div class="border border-slate-700 p-4 rounded-xl">
+                            <h5 class="text-base font-bold text-slate-300 mb-3">הפטרה / מפטיר</h5>
+                            <div id="maftirLibrarySelector" class="mb-3"></div>
+                            <input type="url" id="maftirImage" placeholder="לינק לתמונה" class="form-input w-full p-3 rounded-lg mb-3 text-base">
+                            <input type="url" id="maftirAudio" placeholder="לינק לאודיו" class="form-input w-full p-3 rounded-lg text-base">
                             <input type="hidden" id="maftirAudioTitle" value="קריאת מפטיר">
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-6 border-t border-slate-700 pt-4 text-center">
-                    <button type="submit" class="btn-primary w-full py-3 rounded-xl text-lg font-bold">💾 שמור פרטי תלמיד</button>
+                <div class="mt-8 border-t border-slate-700 pt-6 text-center">
+                    <button type="submit" class="btn-primary w-full py-4 rounded-xl text-xl font-bold">💾 שמור פרטי תלמיד</button>
                 </div>
             </form>
         </div>
@@ -294,21 +317,21 @@
     <div id="libraryEditor" class="modal-overlay">
         <div class="modal-content !max-w-6xl">
             <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
-                <h3 class="text-2xl md:text-3xl font-black text-white"><i class="fas fa-headphones text-amber-400 ml-2"></i> עריכת ספריית הקלטות</h3>
+                <h3 class="text-3xl font-black text-white"><i class="fas fa-headphones text-amber-400 ml-2"></i> עריכת ספריית הקלטות</h3>
                 <button onclick="closeModal('libraryEditor')" class="text-slate-400 hover:text-white text-3xl"><i class="fas fa-times"></i></button>
             </div>
             
-            <div class="flex mb-6 bg-slate-800 rounded-xl p-1 border border-slate-700 text-sm md:text-base">
-                <button onclick="switchLibraryTab('parshiot')" id="tab-parshiot" class="flex-1 py-2 md:py-3 px-2 rounded-lg font-bold transition-all duration-300 bg-blue-600 text-white">📖 פרשיות / עליות</button>
-                <button onclick="switchLibraryTab('shabbat')" id="tab-shabbat" class="flex-1 py-2 md:py-3 px-2 rounded-lg font-bold transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-700">✡️ הפטרות</button>
-                <button onclick="switchLibraryTab('special')" id="tab-special" class="flex-1 py-2 md:py-3 px-2 rounded-lg font-bold transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-700">🎯 מיוחדות</button>
+            <div class="flex mb-6 bg-slate-800 rounded-xl p-2 border border-slate-700 text-lg">
+                <button onclick="switchLibraryTab('parshiot')" id="tab-parshiot" class="flex-1 py-3 px-2 rounded-lg font-bold transition-all duration-300 bg-blue-600 text-white">📖 פרשיות / עליות</button>
+                <button onclick="switchLibraryTab('shabbat')" id="tab-shabbat" class="flex-1 py-3 px-2 rounded-lg font-bold transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-700">✡️ הפטרות</button>
+                <button onclick="switchLibraryTab('special')" id="tab-special" class="flex-1 py-3 px-2 rounded-lg font-bold transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-700">🎯 מיוחדות</button>
             </div>
 
             <div id="library-content"></div>
 
-            <div class="text-center mt-6 pt-6 border-t border-slate-700 flex flex-col md:flex-row justify-center gap-4">
-                <button onclick="addNewLibraryItem()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-500 transition shadow-lg"><i class="fas fa-plus ml-2"></i> הוסף פריט חדש</button>
-                <button onclick="saveLibraryChanges()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-500 transition shadow-lg"><i class="fas fa-save ml-2"></i> שמור שינויים לגיליון</button>
+            <div class="text-center mt-8 pt-6 border-t border-slate-700 flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="addNewLibraryItem()" class="bg-green-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-green-500 transition shadow-lg text-lg"><i class="fas fa-plus ml-2"></i> הוסף פריט חדש</button>
+                <button onclick="saveLibraryChanges()" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition shadow-lg text-lg"><i class="fas fa-save ml-2"></i> שמור שינויים לגיליון</button>
             </div>
         </div>
     </div>
@@ -319,8 +342,8 @@
             <h3 class="text-2xl font-bold text-white mb-2" id="confirmTitle">אישור פעולה</h3>
             <p class="text-slate-300 mb-6 text-lg" id="confirmMessage"></p>
             <div class="flex gap-3 justify-center">
-                <button id="confirmNo" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-xl font-bold transition flex-1">ביטול</button>
-                <button id="confirmYes" class="bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-xl font-bold transition flex-1">אישור</button>
+                <button id="confirmNo" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition flex-1 text-lg">ביטול</button>
+                <button id="confirmYes" class="bg-red-600 hover:bg-red-500 text-white px-6 py-3 rounded-xl font-bold transition flex-1 text-lg">אישור</button>
             </div>
         </div>
     </div>
@@ -330,17 +353,17 @@
             <i class="fas fa-pencil-alt text-4xl text-blue-400 mb-4"></i>
             <h3 class="text-2xl font-bold text-white mb-2" id="inputTitle">הכנס מידע</h3>
             <p class="text-slate-300 mb-4" id="inputMessage"></p>
-            <input type="text" id="inputField" class="form-input w-full p-3 rounded-xl mb-6 text-center text-lg" placeholder="הקלד כאן...">
+            <input type="text" id="inputField" class="form-input w-full p-4 rounded-xl mb-6 text-center text-xl" placeholder="הקלד כאן...">
             <div class="flex gap-3 justify-center">
-                <button id="inputCancel" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-xl font-bold transition flex-1">ביטול</button>
-                <button id="inputSubmit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-xl font-bold transition flex-1">אישור</button>
+                <button id="inputCancel" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition flex-1 text-lg">ביטול</button>
+                <button id="inputSubmit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-xl font-bold transition flex-1 text-lg">אישור</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- חובה לשים כאן את הלינק המעודכן שלך ל-Apps Script! ---
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXMIEwkHHhJagiWXqWcGFIyUkmLIm566Z3sfUEqP8T9ZJm79MLSq49v5nsJK1zofhZPQ/exec";
+        // === הלינק החדש שלך לכאן ===
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6iXuKBIUQd4erEG3vYcrquuLrb_MYheWXgMia8l5LLmdtWKGr8AngR3RRavymGHs6PA/exec";
         
         let students = [];
         let recordingsLibrary = { parshiot: {}, shabbat: {}, special: {} };
@@ -349,17 +372,12 @@
         let currentEditingStudentId = null;
         let currentLibraryTab = 'parshiot';
 
-        // הפיכת פונקציות לגלובליות כדי למנוע שגיאות
-        window.saveToGoogleSheets = function(studentData, callback) {
-            const dataToSave = { ...studentData, lessons: JSON.stringify(studentData.lessons || []) };
-            window.syncToGoogleSheets('save', dataToSave, callback);
-        };
-
+        // הפיכת פונקציות מרכזיות לזמינות גלובלית (window) למניעת שגיאות undefined
         window.customAlert = function(msg, isError = false) {
             const alm = document.getElementById('globalAlert');
             const txt = document.getElementById('globalAlertText');
             const content = document.getElementById('globalAlertContent');
-            content.className = `${isError ? 'bg-red-600' : 'bg-green-600'} text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border border-white/20`;
+            content.className = `${isError ? 'bg-red-600' : 'bg-green-600'} text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border border-white/20 text-lg`;
             txt.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'} ml-2"></i> ${msg}`;
             alm.classList.remove('hidden');
             setTimeout(() => { alm.classList.add('hidden'); }, 3500);
@@ -371,7 +389,7 @@
         window.showConfirmDialog = function(message, onConfirm, title = 'אישור פעולה') {
             document.getElementById('confirmTitle').textContent = title;
             document.getElementById('confirmMessage').textContent = message;
-            openModal('confirmDialog');
+            window.openModal('confirmDialog');
             
             const yesBtn = document.getElementById('confirmYes');
             const noBtn = document.getElementById('confirmNo');
@@ -381,8 +399,8 @@
             yesBtn.parentNode.replaceChild(newYes, yesBtn);
             noBtn.parentNode.replaceChild(newNo, noBtn);
             
-            newYes.addEventListener('click', () => { closeModal('confirmDialog'); if(onConfirm) onConfirm(); });
-            newNo.addEventListener('click', () => closeModal('confirmDialog'));
+            newYes.addEventListener('click', () => { window.closeModal('confirmDialog'); if(onConfirm) onConfirm(); });
+            newNo.addEventListener('click', () => window.closeModal('confirmDialog'));
         };
 
         window.showInputDialog = function(title, message, defaultValue = '', onSubmit) {
@@ -391,7 +409,7 @@
             const inputEl = document.getElementById('inputField');
             inputEl.value = defaultValue;
             
-            openModal('inputDialog');
+            window.openModal('inputDialog');
             setTimeout(() => inputEl.focus(), 100);
 
             const submitBtn = document.getElementById('inputSubmit');
@@ -404,56 +422,73 @@
             
             const handleSub = () => {
                 const val = document.getElementById('inputField').value.trim();
-                closeModal('inputDialog');
+                window.closeModal('inputDialog');
                 if(onSubmit && val) onSubmit(val);
             };
 
             newSubmit.addEventListener('click', handleSub);
-            newCancel.addEventListener('click', () => closeModal('inputDialog'));
+            newCancel.addEventListener('click', () => window.closeModal('inputDialog'));
             inputEl.onkeydown = (e) => { if(e.key === 'Enter') handleSub(); };
         };
 
-        window.makeJSONPRequest = function(url, callback, errorCallback) {
-            const script = document.createElement('script');
-            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-            window[callbackName] = function(data) { callback(data); document.head.removeChild(script); delete window[callbackName]; };
-            script.onerror = function() { if (errorCallback) errorCallback('Network error'); document.head.removeChild(script); delete window[callbackName]; };
-            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-            document.head.appendChild(script);
-        };
-
-        window.syncToGoogleSheets = function(action, data, callback) {
+        // --- סנכרון עם גוגל שיטס בשיטת POST (ללא בעיית אורך כתובת) ---
+        window.syncToGoogleSheets = async function(action, data, callback) {
             if (!GOOGLE_SCRIPT_URL) return callback && callback({ success: false });
             document.getElementById('globalLoader').style.display = 'flex';
             
             let baseUrl = GOOGLE_SCRIPT_URL;
-            if (baseUrl.includes('?mode=api')) {
-                baseUrl = baseUrl.replace('?mode=api', '');
+            if (baseUrl.includes('?mode=api')) baseUrl = baseUrl.replace('?mode=api', '');
+            
+            try {
+                const response = await fetch(baseUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: action, data: data }),
+                    // מונע בעיות CORS מגוגל
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+                
+                const resData = await response.json();
+                document.getElementById('globalLoader').style.display = 'none';
+                if(callback) callback(resData);
+            } catch (error) {
+                document.getElementById('globalLoader').style.display = 'none';
+                console.error("Fetch error:", error);
+                if(callback) callback({success: false, error: error.toString()});
             }
-            
-            const params = new URLSearchParams({ action: action, data: JSON.stringify(data) });
-            const separator = baseUrl.includes('?') ? '&' : '?';
-            const finalUrl = baseUrl + separator + params.toString();
-            
-            window.makeJSONPRequest(finalUrl, 
-                function(res) { document.getElementById('globalLoader').style.display = 'none'; if(callback) callback(res); },
-                function(err) { document.getElementById('globalLoader').style.display = 'none'; if(callback) callback({success: false, error: err}); }
-            );
         };
 
         window.loadFromGoogleSheets = function(callback) {
-            window.syncToGoogleSheets('load', {}, function(response) {
-                if (response && response.success && response.data) {
-                    students = response.data; 
-                    if (response.library) recordingsLibrary = response.library;
-                    localStorage.setItem('barMitzvahStudents', JSON.stringify(students));
-                } else {
+            document.getElementById('globalLoader').style.display = 'flex';
+            
+            let baseUrl = GOOGLE_SCRIPT_URL;
+            if (baseUrl.includes('?mode=api')) baseUrl = baseUrl.replace('?mode=api', '');
+            
+            fetch(baseUrl + '?action=load')
+                .then(res => res.json())
+                .then(response => {
+                    document.getElementById('globalLoader').style.display = 'none';
+                    if (response && response.success && response.data) {
+                        students = response.data;
+                        if (response.library) recordingsLibrary = response.library;
+                        localStorage.setItem('barMitzvahStudents', JSON.stringify(students));
+                    } else {
+                        students = JSON.parse(localStorage.getItem('barMitzvahStudents')) || [];
+                    }
+                    if (callback) callback();
+                })
+                .catch(err => {
+                    document.getElementById('globalLoader').style.display = 'none';
                     students = JSON.parse(localStorage.getItem('barMitzvahStudents')) || [];
-                }
-                if (callback) callback();
-            });
+                    if (callback) callback();
+                });
         };
 
+        window.saveToGoogleSheets = function(studentData, callback) {
+            // שמירת התלמיד (את מערך השיעורים אנחנו מנהלים בגיליון נפרד ולכן לא שולחים כ-JSON ענק)
+            window.syncToGoogleSheets('save', studentData, callback);
+        };
+
+        // --- התחברות ---
         window.checkForDuplicateNames = () => {
             const name = document.getElementById('loginName').value.trim();
             const phoneSection = document.getElementById('phoneSection');
@@ -472,11 +507,11 @@
                 currentUser = { name: 'מנהל המערכת' };
             } else {
                 const matches = students.filter(s => String(s.name || '').trim() === name);
-                if (matches.length === 0) return customAlert('תלמיד לא נמצא במערכת', true);
-                if (matches.length > 1 && !phone) return customAlert('יש להזין נייד לאימות', true);
+                if (matches.length === 0) return window.customAlert('תלמיד לא נמצא במערכת', true);
+                if (matches.length > 1 && !phone) return window.customAlert('יש להזין נייד לאימות', true);
                 if (matches.length > 1 && phone) {
                     const exact = matches.find(s => String(s.studentPhone || '').trim() === phone || String(s.parentPhone || '').trim() === phone);
-                    if (!exact) return customAlert('הנייד לא תואם', true);
+                    if (!exact) return window.customAlert('הנייד לא תואם', true);
                     currentUser = exact;
                 } else {
                     currentUser = matches[0];
@@ -498,6 +533,7 @@
 
         window.logout = () => { location.reload(); };
 
+        // --- שליטה בתמונות ואודיו ---
         window.skipAudio = (audioId, seconds) => {
             const audio = document.getElementById(audioId);
             if (audio) { audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + seconds)); }
@@ -507,13 +543,14 @@
             const img = document.getElementById(imgId);
             if(!img) return;
             let currentWidth = parseFloat(img.getAttribute('data-width')) || 100;
-            currentWidth += (direction * 30); 
+            currentWidth += (direction * 25); 
             if(currentWidth < 100) currentWidth = 100;
-            if(currentWidth > 400) currentWidth = 400;
+            if(currentWidth > 350) currentWidth = 350;
             img.setAttribute('data-width', currentWidth);
             img.style.width = `${currentWidth}%`;
         };
 
+        // --- עזרים לרינדור ---
         function calculateDaysRemaining(dateStr) {
             if (!dateStr) return 0;
             const eventDate = new Date(dateStr);
@@ -529,26 +566,28 @@
         }
         
         function getEventTypeText(eventType) {
-            if(eventType === 'aliyah') return 'עליית ראשון (ללא שבת)';
-            if(eventType === 'shabbat-chatan') return 'שבת חתן בלבד';
+            if(eventType === 'aliyah') return 'עליית ראשון';
+            if(eventType === 'shabbat-chatan') return 'שבת חתן';
             return 'עליית ראשון + שבת חתן';
         }
 
         function buildInlineMaterial(imgSrc, audioSrc, audioTitle, elementIdPrefix) {
             let html = '';
+            
             if(imgSrc) {
                 html += `
-                    <div class="relative group mb-4">
-                        <div class="absolute top-2 left-2 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="window.zoomImg('img-${elementIdPrefix}', 1)" class="zoom-btn bg-slate-900 text-white p-2 rounded-full border border-slate-600 hover:bg-amber-500 hover:text-black" title="הגדל"><i class="fas fa-search-plus"></i></button>
-                            <button onclick="window.zoomImg('img-${elementIdPrefix}', -1)" class="zoom-btn bg-slate-900 text-white p-2 rounded-full border border-slate-600 hover:bg-amber-500 hover:text-black" title="הקטן"><i class="fas fa-search-minus"></i></button>
+                    <div class="relative group mb-5">
+                        <div class="absolute top-3 left-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="window.zoomImg('img-${elementIdPrefix}', 1)" class="zoom-btn" title="הגדל"><i class="fas fa-search-plus"></i></button>
+                            <button onclick="window.zoomImg('img-${elementIdPrefix}', -1)" class="zoom-btn" title="הקטן"><i class="fas fa-search-minus"></i></button>
                         </div>
-                        <div class="rounded-xl border border-slate-700 bg-black overflow-auto max-h-[70vh] custom-scrollbar" style="scroll-behavior: smooth;">
+                        <div class="rounded-xl border border-slate-600 bg-slate-900 overflow-auto max-h-[60vh] custom-scrollbar shadow-inner">
                             <img id="img-${elementIdPrefix}" src="${imgSrc}" class="block mx-auto" style="width: 100%; max-width: none; height: auto; transition: width 0.2s ease;" data-width="100" onerror="this.style.display='none';">
                         </div>
                     </div>
                 `;
             }
+            
             if(audioSrc) {
                 let directUrl = audioSrc;
                 let isDrive = false;
@@ -559,22 +598,24 @@
                     else if (audioSrc.includes('id=')) fileId = audioSrc.split('id=')[1].split('&')[0];
                     if (fileId) directUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
                 }
+
                 html += `
-                    <div class="text-center bg-slate-900/50 p-4 rounded-xl border border-slate-700">
-                        <h5 class="text-white font-bold mb-3 text-sm"><i class="fas fa-headphones text-amber-400 ml-1"></i> ${audioTitle}</h5>
-                        <audio id="audio-${elementIdPrefix}" controls class="w-full h-10 rounded-lg outline-none" preload="none">
+                    <div class="text-center bg-slate-800 p-4 rounded-xl border border-slate-600">
+                        <h5 class="text-white font-bold mb-3 text-base"><i class="fas fa-headphones text-amber-400 ml-1"></i> ${audioTitle}</h5>
+                        <audio id="audio-${elementIdPrefix}" controls class="w-full h-12 rounded-lg outline-none" preload="none">
                             <source src="${directUrl}">
                         </audio>
                         <div class="flex justify-center gap-2 mt-3 flex-wrap">
-                            <button onclick="window.skipAudio('audio-${elementIdPrefix}', -10)" class="audio-ctrl-btn">-10 שניות <i class="fas fa-backward"></i></button>
-                            <button onclick="window.skipAudio('audio-${elementIdPrefix}', -5)" class="audio-ctrl-btn">-5 <i class="fas fa-step-backward"></i></button>
-                            <button onclick="window.skipAudio('audio-${elementIdPrefix}', 5)" class="audio-ctrl-btn"><i class="fas fa-step-forward"></i> +5</button>
-                            <button onclick="window.skipAudio('audio-${elementIdPrefix}', 10)" class="audio-ctrl-btn"><i class="fas fa-forward"></i> +10 שניות</button>
+                            <button type="button" onclick="window.skipAudio('audio-${elementIdPrefix}', -10)" class="audio-ctrl-btn">-10 <i class="fas fa-backward"></i></button>
+                            <button type="button" onclick="window.skipAudio('audio-${elementIdPrefix}', -5)" class="audio-ctrl-btn">-5 <i class="fas fa-step-backward"></i></button>
+                            <button type="button" onclick="window.skipAudio('audio-${elementIdPrefix}', 5)" class="audio-ctrl-btn"><i class="fas fa-step-forward"></i> +5</button>
+                            <button type="button" onclick="window.skipAudio('audio-${elementIdPrefix}', 10)" class="audio-ctrl-btn"><i class="fas fa-forward"></i> +10</button>
                         </div>
-                        ${isDrive ? `<a href="${audioSrc}" target="_blank" class="block mt-3 text-blue-400 hover:text-blue-300 text-xs underline"><i class="fas fa-external-link-alt"></i> לא עובד? לחץ לפתיחה בדפדפן</a>` : ''}
+                        ${isDrive ? `<a href="${audioSrc}" target="_blank" class="block mt-3 text-blue-400 hover:text-blue-300 text-sm underline"><i class="fas fa-external-link-alt"></i> פתח ב-Google Drive</a>` : ''}
                     </div>
                 `;
             }
+            
             return html ? `<div class="inline-material-box">${html}</div>` : '';
         }
 
@@ -596,19 +637,26 @@
             }
             document.getElementById('emptyState').classList.add('hidden');
 
-            displayStudents.forEach(s => {
+            // מיון פעילים - הכי קרוב לאירוע מופיע למעלה
+            let activeStudents = displayStudents.filter(s => calculateDaysRemaining(s.eventDate) >= 0);
+            activeStudents.sort((a,b) => new Date(a.eventDate) - new Date(b.eventDate));
+
+            // מיון סיימו - מי שסיים הכי לאחרונה מופיע למעלה
+            let pastStudents = displayStudents.filter(s => calculateDaysRemaining(s.eventDate) < 0);
+            pastStudents.sort((a,b) => new Date(b.eventDate) - new Date(a.eventDate));
+
+            const renderCard = (s, isDone) => {
                 const days = calculateDaysRemaining(s.eventDate);
-                const isDone = days < 0;
                 
-                let badgeClass = 'bg-blue-600';
+                let badgeClass = 'bg-blue-600 border-2 border-white/30 text-lg py-2 px-5';
                 let badgeText = `נותרו ${days} ימים`;
-                if(days === 0) { badgeClass = 'bg-amber-500 text-black'; badgeText = 'האירוע היום! 🎉'; }
-                if(days < 0) { badgeClass = 'bg-slate-600'; badgeText = `עבר לפני ${Math.abs(days)} ימים`; }
+                if(days === 0) { badgeClass = 'bg-amber-500 text-black border-2 border-white/50 text-lg py-2 px-5'; badgeText = 'האירוע היום! 🎉'; }
+                if(days < 0) { badgeClass = 'bg-slate-600 border-2 border-slate-400 text-base py-2 px-4'; badgeText = `עבר לפני ${Math.abs(days)} ימים`; }
                 
                 const lessonCount = (s.lessons || []).length;
                 const lessonsBadge = isAdmin 
-                    ? `<button onclick="window.openLessonModal('${s.id}')" class="action-btn btn-lesson w-full mt-4 text-sm"><i class="fas fa-book"></i> מעקב שיעורים (${lessonCount})</button>`
-                    : `<div class="bg-blue-900/40 text-blue-200 text-center py-2 rounded-lg font-bold text-sm border border-blue-800/50 mt-4"><i class="fas fa-trophy text-amber-400 ml-1"></i> עברת עד כה ${lessonCount} שיעורים במערכת!</div>`;
+                    ? `<button onclick="window.openLessonModal('${s.id}')" class="action-btn btn-lesson w-full mt-5 text-lg"><i class="fas fa-book"></i> מעקב שיעורים (${lessonCount})</button>`
+                    : `<div class="bg-blue-900/40 text-blue-200 text-center py-3 rounded-xl font-bold text-base border border-blue-800/50 mt-5"><i class="fas fa-trophy text-amber-400 ml-1"></i> עברת עד כה ${lessonCount} שיעורים במערכת!</div>`;
 
                 const includesMorning = (s.eventType === 'aliyah' || s.eventType === 'both');
                 const includesShabbat = (s.eventType === 'shabbat-chatan' || s.eventType === 'both');
@@ -617,8 +665,8 @@
                 
                 if (includesMorning && (s.morningImage || s.morningAudio)) {
                     materialsHtml += `
-                        <div class="mt-4">
-                            <h4 class="text-amber-400 font-bold border-b border-slate-700 pb-1 mb-2"><i class="fas fa-sun ml-1"></i> חומרי עליית ראשון</h4>
+                        <div class="mt-5">
+                            <h4 class="text-amber-400 font-bold border-b border-slate-700 pb-2 mb-3 text-lg"><i class="fas fa-sun ml-1"></i> עליית ראשון</h4>
                             ${buildInlineMaterial(s.morningImage, s.morningAudio, s.morningAudioTitle || "עליית ראשון", `${s.id}-morning`)}
                         </div>
                     `;
@@ -628,53 +676,61 @@
                     if (s.shabbatReading === 'ראשון ומפטיר') {
                         if(s.rishonImage || s.rishonAudio) {
                             materialsHtml += `
-                                <div class="mt-4">
-                                    <h4 class="text-blue-400 font-bold border-b border-slate-700 pb-1 mb-2"><i class="fas fa-star-of-david ml-1"></i> קריאת ראשון (שבת)</h4>
+                                <div class="mt-5">
+                                    <h4 class="text-blue-400 font-bold border-b border-slate-700 pb-2 mb-3 text-lg"><i class="fas fa-star-of-david ml-1"></i> קריאת ראשון (שבת)</h4>
                                     ${buildInlineMaterial(s.rishonImage, s.rishonAudio, s.rishonAudioTitle || "ראשון", `${s.id}-rishon`)}
                                 </div>
                             `;
                         }
                         if(s.maftirImage || s.maftirAudio) {
                             materialsHtml += `
-                                <div class="mt-4">
-                                    <h4 class="text-purple-400 font-bold border-b border-slate-700 pb-1 mb-2"><i class="fas fa-scroll ml-1"></i> קריאת מפטיר / הפטרה</h4>
+                                <div class="mt-5">
+                                    <h4 class="text-purple-400 font-bold border-b border-slate-700 pb-2 mb-3 text-lg"><i class="fas fa-scroll ml-1"></i> קריאת מפטיר / הפטרה</h4>
                                     ${buildInlineMaterial(s.maftirImage, s.maftirAudio, s.maftirAudioTitle || "מפטיר", `${s.id}-maftir`)}
                                 </div>
                             `;
                         }
                     } else if (s.shabbatImage || s.shabbatAudio) {
                         materialsHtml += `
-                            <div class="mt-4">
-                                <h4 class="text-purple-400 font-bold border-b border-slate-700 pb-1 mb-2"><i class="fas fa-star-of-david ml-1"></i> הפטרה / שבת חתן</h4>
+                            <div class="mt-5">
+                                <h4 class="text-purple-400 font-bold border-b border-slate-700 pb-2 mb-3 text-lg"><i class="fas fa-star-of-david ml-1"></i> הפטרה / שבת חתן</h4>
                                 ${buildInlineMaterial(s.shabbatImage, s.shabbatAudio, s.shabbatAudioTitle || "הפטרה", `${s.id}-shabbat`)}
                             </div>
                         `;
                     }
                 }
 
-                if(!materialsHtml) {
-                    materialsHtml = '<div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700 text-slate-500 text-sm text-center mt-4">טרם הוזנו חומרי לימוד</div>';
+                let nextLessonHtml = '';
+                if (s.nextLessonDate) {
+                    let timeStr = s.nextLessonTime ? ` בשעה ${s.nextLessonTime}` : '';
+                    nextLessonHtml = `
+                        <div class="bg-gradient-to-r from-amber-400 to-amber-600 text-slate-900 p-4 rounded-xl border-2 border-amber-300 shadow-[0_0_15px_rgba(251,191,36,0.4)] mt-5 mb-2 text-center">
+                            <div class="font-black text-lg mb-1"><i class="far fa-clock"></i> מועד השיעור הבא שלך:</div>
+                            <div class="text-2xl font-bold">${formatDate(s.nextLessonDate)}${timeStr}</div>
+                        </div>
+                    `;
                 }
 
                 let html = `
-                    <div class="student-card ${isDone ? 'opacity-70 grayscale-[30%]' : ''}">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg text-slate-900 font-black text-xl flex-shrink-0">
+                    <div class="student-card ${isDone ? 'opacity-80 grayscale-[20%]' : ''}">
+                        <div class="flex justify-between items-start mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg text-slate-900 font-black text-3xl flex-shrink-0 border-2 border-white/20">
                                     ${(s.name || '?').charAt(0)}
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-white leading-tight">${s.name}</h3>
-                                    <div class="text-sm text-slate-400">${s.parsha || 'ללא פרשה'} | ${getEventTypeText(s.eventType)}</div>
+                                    <h3 class="text-3xl font-black text-white leading-tight mb-1">${s.name}</h3>
+                                    <div class="text-base text-slate-300 font-bold">${s.parsha || 'ללא פרשה'} | ${getEventTypeText(s.eventType)}</div>
                                 </div>
                             </div>
-                            <div class="${badgeClass} px-3 py-1 rounded-full text-xs shadow-lg whitespace-nowrap mr-2">${badgeText}</div>
+                            <div class="${badgeClass} rounded-2xl shadow-xl whitespace-nowrap mr-2">${badgeText}</div>
                         </div>
 
-                        <div class="space-y-2 mb-2">
-                            <div class="info-bubble"><i class="far fa-calendar-alt"></i> תאריך האירוע: ${formatDate(s.eventDate)}</div>
-                            ${includesShabbat && s.shabbatChatanDate ? `<div class="info-bubble"><i class="fas fa-wine-glass-alt"></i> שבת חתן: ${formatDate(s.shabbatChatanDate)}</div>` : ''}
-                            ${s.nextLessonDate ? `<div class="bg-indigo-900/40 text-indigo-200 text-center py-2 rounded-lg font-bold text-sm border border-indigo-800/50 mt-2"><i class="far fa-clock ml-1"></i> שיעור הבא: ${formatDate(s.nextLessonDate)}</div>` : ''}
+                        ${nextLessonHtml}
+
+                        <div class="space-y-3 mb-4 mt-2">
+                            <div class="info-bubble"><i class="far fa-calendar-alt"></i> תאריך האירוע: <span class="font-bold text-white">${formatDate(s.eventDate)}</span></div>
+                            ${includesShabbat && s.shabbatChatanDate ? `<div class="info-bubble"><i class="fas fa-wine-glass-alt text-purple-400"></i> שבת חתן: <span class="font-bold text-white">${formatDate(s.shabbatChatanDate)}</span></div>` : ''}
                         </div>
 
                         ${materialsHtml}
@@ -682,9 +738,9 @@
                         ${lessonsBadge}
 
                         ${isAdmin ? `
-                            <div class="flex gap-2 mt-4 pt-4 border-t border-slate-700/50">
-                                <button onclick="window.editStudent('${s.id}')" class="action-btn btn-edit flex-1 text-sm"><i class="fas fa-edit"></i> ערוך</button>
-                                <button onclick="window.deleteStudent('${s.id}')" class="action-btn btn-delete px-4"><i class="fas fa-trash"></i></button>
+                            <div class="flex gap-3 mt-6 pt-5 border-t border-slate-700/50">
+                                <button onclick="window.editStudent('${s.id}')" class="action-btn btn-edit flex-1 text-lg"><i class="fas fa-edit"></i> ערוך תלמיד</button>
+                                <button onclick="window.deleteStudent('${s.id}')" class="action-btn btn-delete px-5 text-lg"><i class="fas fa-trash"></i></button>
                             </div>
                         ` : ''}
                     </div>
@@ -692,7 +748,40 @@
 
                 if(isDone && isAdmin) compGrid.innerHTML += html;
                 else grid.innerHTML += html;
+            };
+
+            activeStudents.forEach(s => renderCard(s, false));
+            if(isAdmin) pastStudents.forEach(s => renderCard(s, true));
+        };
+
+        // --- יומן גלובלי למנהל ---
+        window.openGlobalCalendar = () => {
+            const list = document.getElementById('globalCalendarList');
+            let upcoming = students.filter(s => s.nextLessonDate);
+            
+            upcoming.sort((a, b) => {
+                const dateA = new Date(a.nextLessonDate + 'T' + (a.nextLessonTime || '00:00'));
+                const dateB = new Date(b.nextLessonDate + 'T' + (b.nextLessonTime || '00:00'));
+                return dateA - dateB;
             });
+
+            if(upcoming.length === 0) {
+                list.innerHTML = '<div class="text-center text-slate-400 py-8 text-xl">לא נקבעו שיעורים עתידיים לאף תלמיד.</div>';
+            } else {
+                list.innerHTML = upcoming.map(s => `
+                    <div class="bg-slate-800 p-4 rounded-xl border-l-4 border-indigo-500 flex justify-between items-center shadow-lg cursor-pointer hover:bg-slate-700 transition" onclick="window.openLessonModal('${s.id}')">
+                        <div>
+                            <h4 class="text-white font-bold text-xl mb-1">${s.name}</h4>
+                            <div class="text-slate-400 text-sm">${s.parsha || ''}</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-amber-400 font-black text-lg">${formatDate(s.nextLessonDate)}</div>
+                            <div class="text-white font-bold">${s.nextLessonTime || 'שעה לא צוינה'}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            window.openModal('globalCalendarModal');
         };
 
         // --- מעקב שיעורים ---
@@ -702,19 +791,26 @@
             currentEditingStudentId = id;
             document.getElementById('lessonModalTitle').innerText = `יומן שיעורים: ${student.name}`;
             document.getElementById('modalNextLessonDate').value = student.nextLessonDate || '';
+            document.getElementById('modalNextLessonTime').value = student.nextLessonTime || '';
             window.resetLessonForm();
             window.renderLessonsList(student);
             window.openModal('lessonModal');
         };
 
         window.updateNextLessonDate = () => {
-            const val = document.getElementById('modalNextLessonDate').value;
+            const dateVal = document.getElementById('modalNextLessonDate').value;
+            const timeVal = document.getElementById('modalNextLessonTime').value;
             const student = students.find(s => String(s.id) === String(currentEditingStudentId));
-            student.nextLessonDate = val;
+            
+            student.nextLessonDate = dateVal;
+            student.nextLessonTime = timeVal;
+            
             window.saveToGoogleSheets(student, (res) => {
                 if(res.success) {
-                    window.customAlert('תאריך שיעור הבא עודכן!');
+                    window.customAlert('מועד השיעור הבא עודכן!');
                     window.renderStudents();
+                } else {
+                    window.customAlert('שגיאה בעדכון התאריך', true);
                 }
             });
         };
@@ -725,18 +821,18 @@
             document.getElementById('lessonCountBadge').innerText = `סה"כ עבר ${lessons.length} שיעורים`;
             
             if (lessons.length === 0) {
-                list.innerHTML = '<div class="text-slate-500 text-center py-6 bg-slate-800/30 rounded-xl border border-slate-700">טרם תועדו שיעורים לתלמיד זה.</div>';
+                list.innerHTML = '<div class="text-slate-500 text-center py-6 bg-slate-800/30 rounded-xl border border-slate-700 text-lg">טרם תועדו שיעורים לתלמיד זה.</div>';
             } else {
                 const sorted = [...lessons].sort((a,b) => new Date(b.date) - new Date(a.date));
                 list.innerHTML = sorted.map((l, idx) => `
                     <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-start hover:border-blue-500/50 transition group">
                         <div class="flex-1">
-                            <div class="text-amber-400 font-bold mb-2 text-sm"><i class="far fa-calendar-alt ml-1"></i> ${formatDate(l.date)}</div>
-                            <div class="text-white text-base bg-slate-900/50 p-3 rounded-lg">${l.summary}</div>
+                            <div class="text-amber-400 font-bold mb-2 text-base"><i class="far fa-calendar-alt ml-1"></i> ${formatDate(l.date)}</div>
+                            <div class="text-white text-lg bg-slate-900/50 p-3 rounded-lg">${l.summary}</div>
                         </div>
-                        <div class="flex flex-col gap-2 mr-2">
-                            <button onclick="window.editLesson(${idx})" class="text-blue-400 hover:text-blue-300 p-2 transition opacity-0 group-hover:opacity-100"><i class="fas fa-pencil-alt"></i></button>
-                            <button onclick="window.deleteLesson(${idx})" class="text-red-400 hover:text-red-300 p-2 transition opacity-0 group-hover:opacity-100"><i class="fas fa-trash"></i></button>
+                        <div class="flex flex-col gap-2 mr-3">
+                            <button onclick="window.editLesson(${idx})" class="text-blue-400 hover:text-blue-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-pencil-alt"></i></button>
+                            <button onclick="window.deleteLesson(${idx})" class="text-red-400 hover:text-red-300 p-2 transition opacity-0 group-hover:opacity-100 bg-slate-900 rounded-lg border border-slate-700"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 `).join('');
@@ -749,8 +845,8 @@
             document.getElementById('editingLessonId').value = '';
             
             const btn = document.getElementById('saveLessonBtn');
-            btn.innerText = 'שמור שיעור';
-            btn.className = 'bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-lg transition shadow-md flex-1';
+            btn.innerText = 'שמור שיעור חדש';
+            btn.className = 'bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition shadow-md flex-1 text-lg';
             btn.onclick = window.addNewLesson;
             
             document.getElementById('cancelEditLessonBtn').classList.add('hidden');
@@ -790,8 +886,8 @@
             document.getElementById('editingLessonId').value = lessonToEdit.id;
 
             const btn = document.getElementById('saveLessonBtn');
-            btn.innerText = 'עדכן שיעור';
-            btn.className = 'bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition shadow-md flex-1';
+            btn.innerHTML = 'עדכן שיעור <i class="fas fa-save ml-1"></i>';
+            btn.className = 'bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition shadow-md flex-1 text-lg';
             btn.onclick = window.saveEditedLesson;
             
             document.getElementById('cancelEditLessonBtn').classList.remove('hidden');
@@ -829,18 +925,12 @@
                 const student = students.find(s => String(s.id) === String(currentEditingStudentId));
                 const sorted = [...student.lessons].sort((a,b) => new Date(b.date) - new Date(a.date));
                 const lessonToDelete = sorted[index];
-                const realIndex = student.lessons.findIndex(l => l.date === lessonToDelete.date && l.summary === lessonToDelete.summary);
+                const realIndex = student.lessons.findIndex(l => String(l.id) === String(lessonToDelete.id));
                 
                 if(realIndex > -1) {
                     student.lessons.splice(realIndex, 1);
                     if(lessonToDelete.id) {
                          window.syncToGoogleSheets('deleteLesson', { lessonId: lessonToDelete.id }, function() {
-                            window.customAlert('השיעור נמחק בהצלחה');
-                            window.renderLessonsList(student);
-                            window.renderStudents();
-                        });
-                    } else {
-                        window.saveToGoogleSheets(student, function() {
                             window.customAlert('השיעור נמחק בהצלחה');
                             window.renderLessonsList(student);
                             window.renderStudents();
@@ -869,7 +959,7 @@
             const library = recordingsLibrary[tabName] || {};
             
             if(Object.keys(library).length === 0) {
-                content.innerHTML = '<div class="text-center py-8 text-slate-500">אין פריטים בקטגוריה זו. לחץ על "הוסף פריט חדש".</div>';
+                content.innerHTML = '<div class="text-center py-8 text-slate-500 text-lg">אין פריטים בקטגוריה זו. לחץ על "הוסף פריט חדש".</div>';
                 return;
             }
 
@@ -877,15 +967,15 @@
                 ${Object.entries(library).map(([name, data]) => `
                     <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 relative group" data-name="${name}">
                         <div class="flex justify-between items-start mb-3">
-                            <h5 class="text-lg font-bold text-white">${name}</h5>
+                            <h5 class="text-xl font-bold text-white">${name}</h5>
                             <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
-                                <button onclick="window.editLibraryItem('${tabName}', '${name}')" class="text-blue-400 hover:text-blue-300 p-1"><i class="fas fa-edit"></i></button>
-                                <button onclick="window.deleteLibraryItem('${tabName}', '${name}')" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+                                <button onclick="window.editLibraryItem('${tabName}', '${name}')" class="text-blue-400 hover:text-blue-300 p-2"><i class="fas fa-edit"></i></button>
+                                <button onclick="window.deleteLibraryItem('${tabName}', '${name}')" class="text-red-400 hover:text-red-300 p-2"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div class="text-sm text-slate-400 space-y-1">
-                            <div class="truncate"><i class="fas fa-image text-blue-400 w-5"></i> ${data.image ? 'יש תמונה' : 'אין תמונה'}</div>
-                            <div class="truncate"><i class="fas fa-music text-purple-400 w-5"></i> ${data.audio ? 'יש הקלטה' : 'אין הקלטה'}</div>
+                        <div class="text-base text-slate-400 space-y-1">
+                            <div class="truncate"><i class="fas fa-image text-blue-400 w-6"></i> ${data.image ? 'יש תמונה' : 'אין תמונה'}</div>
+                            <div class="truncate"><i class="fas fa-music text-purple-400 w-6"></i> ${data.audio ? 'יש הקלטה' : 'אין הקלטה'}</div>
                         </div>
                     </div>
                 `).join('')}
@@ -898,12 +988,12 @@
             
             div.innerHTML = `
                 <div class="bg-slate-900/80 -m-4 p-4 rounded-xl border border-amber-500/50">
-                    <input type="text" id="edit-name-${itemName}" value="${itemName}" class="form-input w-full p-2 mb-2 rounded" placeholder="שם הפריט">
-                    <input type="url" id="edit-image-${itemName}" value="${item.image || ''}" class="form-input w-full p-2 mb-2 rounded text-sm" placeholder="לינק לתמונה">
-                    <input type="url" id="edit-audio-${itemName}" value="${item.audio || ''}" class="form-input w-full p-2 mb-3 rounded text-sm" placeholder="לינק להקלטה">
+                    <input type="text" id="edit-name-${itemName}" value="${itemName}" class="form-input w-full p-3 mb-2 rounded-lg text-base" placeholder="שם הפריט">
+                    <input type="url" id="edit-image-${itemName}" value="${item.image || ''}" class="form-input w-full p-3 mb-2 rounded-lg text-base" placeholder="לינק לתמונה">
+                    <input type="url" id="edit-audio-${itemName}" value="${item.audio || ''}" class="form-input w-full p-3 mb-4 rounded-lg text-base" placeholder="לינק להקלטה">
                     <div class="flex gap-2">
-                        <button onclick="window.saveLibraryItem('${tabName}', '${itemName}')" class="bg-green-600 text-white px-3 py-2 rounded flex-1 font-bold text-sm hover:bg-green-500">שמור</button>
-                        <button onclick="window.switchLibraryTab('${tabName}')" class="bg-slate-600 text-white px-3 py-2 rounded flex-1 text-sm hover:bg-slate-500">ביטול</button>
+                        <button onclick="window.saveLibraryItem('${tabName}', '${itemName}')" class="bg-green-600 text-white px-4 py-3 rounded-lg flex-1 font-bold text-lg hover:bg-green-500">שמור</button>
+                        <button onclick="window.switchLibraryTab('${tabName}')" class="bg-slate-600 text-white px-4 py-3 rounded-lg flex-1 text-lg hover:bg-slate-500">ביטול</button>
                     </div>
                 </div>
             `;
@@ -951,12 +1041,12 @@
             });
         }
 
-        // --- טפסים ---
+        // --- טפסים להוספת תלמיד ---
         window.createLibrarySelectorHTML = function(type, targetImageId, targetAudioId, targetTitleId, placeholder) {
             const lib = recordingsLibrary[type] || {};
             let options = Object.keys(lib).map(k => `<option value="${k}">${k}</option>`).join('');
             return `
-                <select onchange="window.populateFromLibrary('${type}', this.value, '${targetImageId}', '${targetAudioId}', '${targetTitleId}')" class="form-input w-full p-2 rounded-lg mb-2 text-sm bg-blue-900/30">
+                <select onchange="window.populateFromLibrary('${type}', this.value, '${targetImageId}', '${targetAudioId}', '${targetTitleId}')" class="form-input w-full p-3 rounded-lg mb-3 text-base bg-blue-900/30">
                     <option value="">${placeholder}</option>
                     ${options}
                 </select>
@@ -1127,7 +1217,6 @@
             });
         }
 
-        // --- שונות ---
         window.toggleAdminSidebar = () => {
             const sb = document.getElementById('adminSidebar');
             const ov = document.getElementById('sidebarOverlay');
@@ -1148,4 +1237,4 @@
         });
     </script>
 </body>
-</html>
+</html>כ
